@@ -12,5 +12,19 @@ pipeline {
                 }
             }
         }
+        stage('Serve HTML') {
+            steps {
+                script {
+                    // Start a simple HTTP server in the background
+                    sh 'nohup python3 -m http.server 8080 --directory /tmp &'
+                    echo "HTTP server started on port 8080"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo "Pipeline finished."
+        }
     }
 }
